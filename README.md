@@ -1,2 +1,2 @@
 # CornWeb
-A simple web server
+A simple webserver written in C
