@@ -15,7 +15,7 @@ int load_config(){
     if (sscanf(line, "%127[^=]=%383[^\n]", key, value) == 2){
       if (strcmp(key, "port") == 0){
         config.port = atoi(value);
-      } else if (strcmp(key, "address") == 0){
+      } else if (strcmp(key, "listening_address") == 0){
         strncpy(config.address, value, sizeof(config.address));
         config.address[sizeof(config.address) - 1] = '\0';
       } else if (strcmp(key, "document_root") == 0){
