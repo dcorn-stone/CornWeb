@@ -129,7 +129,7 @@ int serve_file(char *buf_ptr, int client_fd) {
 
     // detect file type
     char file_type[128];
-    const char *ext = strrchr(path, '.');
+    const char *ext = strrchr(config.root_static, '.');
     if (!ext) {
       strcpy(file_type, "application/octet-stream"); // fall-back MIME type
     }
@@ -152,7 +152,7 @@ int serve_file(char *buf_ptr, int client_fd) {
       strcpy(file_type, "application/octet-stream"); // default MIME type
 
     // serve the index.html file
-    FILE *fptr = fopen(config.document_root, "rb");
+    FILE *fptr = fopen(config.root_static, "rb");
     if (fptr) {
 
       // Calculate file size for Content-Length

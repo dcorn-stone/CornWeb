@@ -18,8 +18,8 @@ int load_config() {
       } else if (strcmp(key, "listening_address") == 0) {
         strncpy(config.address, value, sizeof(config.address));
         config.address[sizeof(config.address) - 1] = '\0';
-      } else if (strcmp(key, "document_root") == 0) {
-        strncpy(config.document_root, value, sizeof(config.document_root));
+      } else if (strcmp(key, "root_static") == 0) {
+        strncpy(config.root_static, value, sizeof(config.root_static));
       }
     }
   }
