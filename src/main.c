@@ -70,39 +70,21 @@ int main() {
     return -4;
   }
 
-  // tracking used space in the buffer
-  unsigned int allocated = BUFFER_SIZE;
-
-  size_t total_read = 0;
-
   // respond to client
   while (1) {
+
     client_fd = accept(server_fd, (struct sockaddr *)&client_addr, &addrlen);
     if (client_fd < 0) {
       perror("Failed to accept connection");
       continue;
     }
 
-    // preserve chunk for one more read
-    if (allocated + 2048 + 1 > allocated) {
-      allocated += BUFFER_SIZE;
-      char *tmp_ptr = realloc(buffer, allocated);
-      if (!tmp_ptr) {
-        perror("Failed to reallocate memory");
-        close(client_fd);
-        close(server_fd);
-        free(buffer);
-        return -5;
-      }
-      buffer = tmp_ptr;
-    }
-
     // recieve requests and respond
-    size_t bytes_read = read(client_fd, buffer + total_read, sizeof(buffer));
-    total_read += bytes_read;
+    memset(buffer, 0, sizeof(buffer));
+    size_t bytes_read = read(client_fd, buffer, sizeof(buffer));
     if (bytes_read > 0) {
-      buffer[bytes_read] = '\0';
       printf("Request recieved: \n%s\n", buffer);
+      buffer[bytes_read] = '\0';
 
       // parsing files if needed
       serve_file(buffer, client_fd);
