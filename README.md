@@ -36,9 +36,9 @@ port=PORT
 root_static=/path/to/file
 ```
 
-'listening_from' gets the address of the listening range you want.
-'port' gets the port number you want this server to start on.
-'root_static' gets the path to the static file you want to show when accessing the domain without any path.(e.g. index.html)
+- 'listening_from' gets the address of the listening range you want.
+- 'port' gets the port number you want this server to start on.
+- 'root_static' gets the path to the static file you want to show when accessing the domain without any path.(e.g. index.html)
 
 You can also set endpoints in a certain section of the configuration file.
 Under the line '\[/endpoint=/path/to/file\]', you can define your endpoints as such
