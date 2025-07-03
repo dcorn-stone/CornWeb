@@ -4,9 +4,9 @@ A simple http web server written in C
 
 ## Functionalities
 
-- Handle one client at the same time
+- Handles one client at the same time
 - Use a configuration file to tweak settings
-- Serve a html file
+- Define endpoints
 
 ## Build From Source
 
