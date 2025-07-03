@@ -24,13 +24,14 @@ int load_config() {
       if (section == NORMAL_SECTION) {
         if (strcmp(key, "port") == 0) {
           config.port = atoi(value);
-        } else if (strcmp(key, "listening_address") == 0) {
+
+        } else if (strcmp(key, "listening_from") == 0) {
           strncpy(config.address, value, sizeof(config.address));
-
           config.address[sizeof(config.address) - 1] = '\0';
-        } else if (strcmp(key, "root_static") == 0) {
 
+        } else if (strcmp(key, "root_static") == 0) {
           strncpy(config.root_static, value, sizeof(config.root_static));
+
         } else if (strcmp(key, "[/endpoint") == 0 &&
                    strcmp(value, "/path/to/file]") == 0) {
           section = ENDPOINTS;

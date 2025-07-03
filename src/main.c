@@ -57,7 +57,7 @@ int main() {
 
   // console
   printf("Server started on port %d\n", config.port);
-
+  printf("Listening from %s\n\n", config.address);
   // preparing for client connections
   int client_fd;
   struct sockaddr_in client_addr;
