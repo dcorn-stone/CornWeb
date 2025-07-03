@@ -134,7 +134,7 @@ int serve_file(char *buf_ptr, int client_fd) {
     else
       strcpy(file_type, "application/octet-stream"); // default MIME type
 
-    // serve the index.html file
+    // serve the file
     FILE *fptr = fopen(config.root_static, "rb");
     if (fptr) {
 
@@ -163,7 +163,6 @@ int serve_file(char *buf_ptr, int client_fd) {
         while (total_sent < n) {
           ssize_t sent = write(client_fd, buf + total_sent, n - total_sent);
           if (sent <= 0) {
-            // Handle write error (e.g., client disconnected)
             break;
           }
           total_sent += sent;
@@ -183,8 +182,10 @@ int serve_file(char *buf_ptr, int client_fd) {
 
     // search for file
     for (int i = 0; i < endpoint_count; i++) {
+
       // parse the corresponding static file
       if (strcmp(path, endpoints[i].endpoint) == 0) {
+
         // detect file type
         char file_type[128];
         const char *ext = strrchr(endpoints[i].path, '.');
@@ -209,7 +210,7 @@ int serve_file(char *buf_ptr, int client_fd) {
         else
           strcpy(file_type, "application/octet-stream"); // default MIME type
 
-        // serve the index.html file
+        // serve file
         FILE *fptr = fopen(endpoints[i].path, "rb");
         if (fptr) {
 
@@ -238,7 +239,6 @@ int serve_file(char *buf_ptr, int client_fd) {
             while (total_sent < n) {
               ssize_t sent = write(client_fd, buf + total_sent, n - total_sent);
               if (sent <= 0) {
-                // Handle write error (e.g., client disconnected)
                 break;
               }
               total_sent += sent;
