@@ -26,7 +26,7 @@ Under the project root directory
 make clean
 ```
 
-### Configuration
+## Configuration
 
 There are a few thing you can configure in the server.conf file
 
