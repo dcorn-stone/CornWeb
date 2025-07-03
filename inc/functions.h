@@ -1,9 +1,9 @@
 #ifndef FUNCTIONS
 #define FUNCTIONS
 
-int load_config();
+#define MAX_ENDPOINTS 64
 
-int add_endpoint(const char endpoint, const char static_path);
+int load_config();
 
 typedef struct {
   char address[32];
@@ -11,6 +11,14 @@ typedef struct {
   char root_static[256];
 } server_config;
 
+typedef struct {
+  char endpoint[127];
+  char path[383];
+} endpoint_t;
+
 extern server_config config;
+
+extern endpoint_t endpoints[MAX_ENDPOINTS];
+int endpoint_count = 0;
 
 #endif // FUNCTIONS

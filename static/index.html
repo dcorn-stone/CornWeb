@@ -1,44 +1,14 @@
+<!-- index.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <!-- This ensures compatibility with Internet Explorer -->
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <!-- Makes sure the page scales correctly on mobile devices -->
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>HTML Test File</title>
-  <style>
-    /* Basic styling that is widely supported */
-    body {
-      font-family: Arial, sans-serif;
-      margin: 40px;
-      background: #f9f9f9;
-      color: #333;
-    }
-    h1 {
-      color: #222;
-    }
-    p {
-      line-height: 1.6;
-    }
-  </style>
+  <meta charset="UTF-8"/>
+  <title>Snake Game</title>
+  <link rel="stylesheet" href="style.css"/>
 </head>
 <body>
-  <h1>Hello World!</h1>
-  <p>This is a simple HTML test file designed to work across modern and legacy browsers.</p>
-
-  <!-- Simple JavaScript to confirm that scripts are operating -->
-  <script type="text/javascript">
-    // Logs a message to the console if JavaScript is enabled
-    console.log("JavaScript is successfully running!");
-    // Dynamically add content to the page
-    document.write("<p>If you see this message, JavaScript is enabled in your browser.</p>");
-  </script>
-
-  <!-- Fallback message for browsers with disabled JavaScript -->
-  <noscript>
-    <p><strong>Note:</strong> JavaScript is disabled in your browser. Some features may not work as expected.</p>
-  </noscript>
+  <canvas id="game" width="400" height="400"></canvas>
+  <script src="script.js"></script>
 </body>
 </html>
 
