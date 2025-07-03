@@ -1,75 +1,78 @@
-// script.js
-const canvas = document.getElementById('game');
-const ctx    = canvas.getContext('2d');
+document.addEventListener('DOMContentLoaded', () => {
+  const holes = document.querySelectorAll('.hole');
+  const scoreEl = document.getElementById('score');
+  const timerEl = document.getElementById('timer');
+  const startBtn = document.getElementById('start');
 
-const gridSize = 20;         // number of cells per row/col
-const cellSize = canvas.width / gridSize;
+  let lastHole;
+  let timeUp = false;
+  let score = 0;
+  let gameTimer;
+  let moleTimer;
+  let timeLeft = 60;
+  let popUpSpeed = 1000;
 
-let snake = [{ x: 10, y: 10 }];  // initial snake: one cell at center
-let dir   = { x: 0, y: 0 };      // current movement direction
-let food  = randomCell();
-let score = 0;
+  function randomTime(min, max) {
+    return Math.round(Math.random() * (max - min) + min);
+  }
 
-document.addEventListener('keydown', e => {
-  // map arrow keys / WASD to direction
-  if (e.key === 'ArrowUp'    && dir.y === 0) dir = { x: 0, y: -1 };
-  if (e.key === 'ArrowDown'  && dir.y === 0) dir = { x: 0, y:  1 };
-  if (e.key === 'ArrowLeft'  && dir.x === 0) dir = { x: -1, y: 0 };
-  if (e.key === 'ArrowRight' && dir.x === 0) dir = { x:  1, y: 0 };
-});
+  function randomHole(holes) {
+    const idx = Math.floor(Math.random() * holes.length);
+    const hole = holes[idx];
+    if (hole === lastHole) return randomHole(holes);
+    lastHole = hole;
+    return hole;
+  }
 
-function randomCell() {
-  return {
-    x: Math.floor(Math.random() * gridSize),
-    y: Math.floor(Math.random() * gridSize)
-  };
-}
+  function peep() {
+    const time = randomTime(popUpSpeed / 2, popUpSpeed);
+    const hole = randomHole(holes);
+    hole.classList.add('mole');
+    setTimeout(() => {
+      hole.classList.remove('mole');
+      if (!timeUp) peep();
+    }, time);
+  }
 
-function gameLoop() {
-  // move snake
-  const head = { x: snake[0].x + dir.x, y: snake[0].y + dir.y };
-  // wrap around edges
-  head.x = (head.x + gridSize) % gridSize;
-  head.y = (head.y + gridSize) % gridSize;
-
-  // check self-collision
-  if (snake.some(seg => seg.x === head.x && seg.y === head.y)) {
-    alert('Game Over! Score: ' + score);
-    snake = [{ x: 10, y: 10 }];
-    dir = { x: 0, y: 0 };
+  function startGame() {
     score = 0;
-    food = randomCell();
+    timeLeft = 60;
+    popUpSpeed = 1000;
+    scoreEl.textContent = score;
+    timerEl.textContent = timeLeft;
+    timeUp = false;
+    startBtn.disabled = true;
+
+    peep();
+    gameTimer = setInterval(() => {
+      timeLeft--;
+      timerEl.textContent = timeLeft;
+
+      // speed up every 10 seconds
+      if (timeLeft % 10 === 0 && popUpSpeed > 300) {
+        popUpSpeed -= 100;
+      }
+
+      if (timeLeft <= 0) {
+        timeUp = true;
+        clearInterval(gameTimer);
+        startBtn.disabled = false;
+        alert(`Time's up! Your final score is ${score}.`);
+      }
+    }, 1000);
   }
 
-  snake.unshift(head);
-
-  // eating food?
-  if (head.x === food.x && head.y === food.y) {
+  function whack(e) {
+    if (!e.isTrusted) return; // ignore fake clicks
+    if (!this.classList.contains('mole')) return;
     score++;
-    food = randomCell();
-  } else {
-    snake.pop(); // remove tail
+    scoreEl.textContent = score;
+    this.classList.remove('mole');
+    this.classList.add('hit');
+    setTimeout(() => this.classList.remove('hit'), 200);
   }
 
-  // draw everything
-  ctx.fillStyle = '#222';
-  ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-  // food
-  ctx.fillStyle = '#e74c3c';
-  ctx.fillRect(food.x * cellSize, food.y * cellSize, cellSize, cellSize);
-
-  // snake
-  ctx.fillStyle = '#2ecc71';
-  snake.forEach((seg, i) => {
-    ctx.fillRect(seg.x * cellSize, seg.y * cellSize, cellSize - 1, cellSize - 1);
-  });
-
-  // score
-  ctx.fillStyle = '#fff';
-  ctx.fillText('Score: ' + score, 5, canvas.height - 5);
-}
-
-// run at ~10 FPS
-setInterval(gameLoop, 100);
+  holes.forEach(hole => hole.addEventListener('click', whack));
+  startBtn.addEventListener('click', startGame);
+});
 

@@ -1,13 +1,36 @@
-<!-- index.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8"/>
-  <title>Snake Game</title>
-  <link rel="stylesheet" href="style.css"/>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Whack-a-Mole</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <canvas id="game" width="400" height="400"></canvas>
+  <div class="game-container">
+    <h1>Whack-a-Mole</h1>
+
+    <div class="scoreboard">
+      Score: <span id="score">0</span>  
+      Time: <span id="timer">60</span>s
+    </div>
+
+    <div class="grid">
+      <!-- 9 holes -->
+      <div class="hole" data-index="0"></div>
+      <div class="hole" data-index="1"></div>
+      <div class="hole" data-index="2"></div>
+      <div class="hole" data-index="3"></div>
+      <div class="hole" data-index="4"></div>
+      <div class="hole" data-index="5"></div>
+      <div class="hole" data-index="6"></div>
+      <div class="hole" data-index="7"></div>
+      <div class="hole" data-index="8"></div>
+    </div>
+
+    <button id="start">Start Game</button>
+  </div>
+
   <script src="script.js"></script>
 </body>
 </html>

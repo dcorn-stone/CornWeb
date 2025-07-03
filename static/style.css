@@ -1,16 +1,72 @@
-/* style.css */
 body {
   margin: 0;
-  background: #111;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
-  color: #eee;
+  padding: 0;
   font-family: sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: 100vh;
+  background: #def;
 }
-canvas {
-  background: #222;
-  box-shadow: 0 0 20px rgba(0,0,0,.5);
+
+.game-container {
+  text-align: center;
+  margin-top: 2rem;
+}
+
+.scoreboard {
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 100px);
+  grid-gap: 15px;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+
+.hole {
+  width: 100px;
+  height: 100px;
+  background: #7ba;
+  border: 4px solid #589;
+  border-radius: 10px;
+  position: relative;
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.mole {
+  position: absolute;
+  bottom: -100px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 80px;
+  background: brown;
+  border-radius: 50%;
+  transition: bottom 0.2s;
+  bottom: 0;
+}
+
+.hit {
+  background: gold !important;
+}
+
+button {
+  padding: 0.6rem 1.2rem;
+  font-size: 1rem;
+  border: none;
+  background: #589;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:disabled {
+  background: #aaa;
+  cursor: not-allowed;
 }
 

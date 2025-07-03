@@ -6,6 +6,9 @@
 #define NORMAL_SECTION 0
 #define ENDPOINTS 1
 
+int endpoint_count = 0;
+endpoint_t endpoints[MAX_ENDPOINTS];
+
 int load_config() {
   FILE *conf = fopen("../server.conf", "r");
   if (!conf) {
@@ -13,6 +16,7 @@ int load_config() {
   }
 
   char line[512];
+
   int section = NORMAL_SECTION;
   while (fgets(line, sizeof(line), conf)) {
     char key[128], value[384];

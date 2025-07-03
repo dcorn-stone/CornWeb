@@ -19,6 +19,6 @@ typedef struct {
 extern server_config config;
 
 extern endpoint_t endpoints[MAX_ENDPOINTS];
-int endpoint_count = 0;
+extern int endpoint_count;
 
 #endif // FUNCTIONS
