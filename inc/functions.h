@@ -5,6 +5,8 @@
 
 int load_config();
 
+int handle_request(char *buf_ptr, int client_fd);
+
 typedef struct {
   char address[32];
   int port;

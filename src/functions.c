@@ -1,4 +1,5 @@
 #include "functions.h"
+#include "response.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -53,6 +54,25 @@ int load_config() {
         endpoint_count++;
       }
     }
+  }
+
+  return 0;
+}
+
+int handle_request(char *buf_ptr, int client_fd) {
+  // stored request method, request path and http version
+  char method[8];
+  char path[512];
+  char http_version[16];
+
+  // parse informations
+  sscanf(buf_ptr, "%s %255s %15s", method, path, http_version);
+  strncpy(request_s.method, method, sizeof(method));
+  strncpy(request_s.path, path, sizeof(path));
+  strncpy(request_s.http_version, http_version, sizeof(http_version));
+
+  if (strcmp(method, "GET") == 0) {
+    handle_get(client_fd);
   }
 
   return 0;
