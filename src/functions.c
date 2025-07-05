@@ -73,7 +73,34 @@ int handle_request(char *buf_ptr, int client_fd) {
 
   if (strcmp(method, "GET") == 0) {
     handle_get(client_fd);
+  } else if (strcmp(method, "HEAD") == 0) {
+    handle_head(client_fd);
   }
 
   return 0;
+}
+
+// detect file type
+const char *file_type(const char path[128]) {
+  const char *ext = strrchr(path, '.');
+  if (!ext) {
+    return "application/octet-stream"; // fall-back MIME type
+  }
+
+  if (strcmp(ext, ".html") == 0 || strcmp(ext, ".htm") == 0)
+    return "text/html";
+  else if (strcmp(ext, ".css") == 0)
+    return "text/css";
+  else if (strcmp(ext, ".js") == 0)
+    return "application/javascript";
+  else if (strcmp(ext, ".json") == 0)
+    return "application/json";
+  else if (strcmp(ext, ".png") == 0)
+    return "image/png";
+  else if (strcmp(ext, ".jpg") == 0 || strcmp(ext, ".jpeg") == 0)
+    return "image/jpeg";
+  else if (strcmp(ext, ".gif") == 0)
+    return "image/gif";
+  else
+    return "application/octet-stream"; // default MIME type
 }

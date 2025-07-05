@@ -2,6 +2,7 @@
 #define RESPONSE
 
 void handle_get(int client_fd);
+void handle_head(int client_fd);
 
 typedef struct {
   char method[8];

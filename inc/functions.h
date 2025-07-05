@@ -4,8 +4,8 @@
 #define MAX_ENDPOINTS 64
 
 int load_config();
-
 int handle_request(char *buf_ptr, int client_fd);
+const char *file_type(const char path[128]);
 
 typedef struct {
   char address[32];
