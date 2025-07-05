@@ -90,8 +90,10 @@ int main() {
       printf("Request recieved: \n%s\n", buffer);
       buffer[bytes_read] = '\0';
 
-      // parsing files if needed
-      handle_request(buffer, client_fd);
+      // responses
+      if (handle_request(buffer, client_fd) < 0) {
+        perror("Error encountered when preparing for response");
+      }
     }
   }
 

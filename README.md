@@ -4,9 +4,10 @@ A simple http web server written in C
 
 ## Functionalities
 
-- Handles one client at the same time
+- Single threaded
 - Use a configuration file to tweak settings
-- Define endpoints
+- User defined endpoints
+- Accept basic GET, HEAD requests
 
 ## Build From Source
 

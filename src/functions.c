@@ -24,6 +24,7 @@ int load_config() {
   char line[512];
   int section = NORMAL_SECTION;
 
+  // reading the configuration line by line
   while (fgets(line, sizeof(line), conf)) {
 
     char key[128], value[384];
@@ -66,7 +67,10 @@ int handle_request(char *buf_ptr, int client_fd) {
   char http_version[16];
 
   // parse informations
-  sscanf(buf_ptr, "%s %255s %15s", method, path, http_version);
+  if (sscanf(buf_ptr, "%s %255s %15s", method, path, http_version) < 3) {
+    return -1;
+  }
+
   strncpy(request_s.method, method, sizeof(method));
   strncpy(request_s.path, path, sizeof(path));
   strncpy(request_s.http_version, http_version, sizeof(http_version));
