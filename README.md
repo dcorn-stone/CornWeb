@@ -28,7 +28,7 @@ make clean
 
 ## Configuration
 
-==MAKE SURE THE CONFIGURATION FILE IS AT THE PARENT DIRECTORY OF THE ACTUAL PROGRAM==
+**MAKE SURE THE CONFIGURATION FILE IS AT THE PARENT DIRECTORY OF THE ACTUAL PROGRAM**
 
 There are a few thing you can configure in the server.conf file
 
