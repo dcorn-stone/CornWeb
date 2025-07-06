@@ -1,10 +1,9 @@
 # CornWeb
 
-A simple http web server written in C
+A simple http web server written in C, only accepts GET and HEAD requests. Aiming for simplicity, best for people who just want to host an informative website that does not require intense processing.
 
 ## Functionalities
 
-- Single threaded
 - Use a configuration file to tweak settings
 - User defined endpoints
 - Accept basic GET, HEAD requests
@@ -28,6 +27,8 @@ make clean
 ```
 
 ## Configuration
+
+==MAKE SURE THE CONFIGURATION FILE IS AT THE PARENT DIRECTORY OF THE ACTUAL PROGRAM==
 
 There are a few thing you can configure in the server.conf file
 
@@ -55,3 +56,12 @@ Here is an example
 [/endpoint=/path/to/file]
 /style.css=/home/name/project/style.css
 ```
+
+## Limitations
+
+- Only accept GET, HEAD requests
+- No dynamic routing
+- Serves static files only
+- Single threaded
+- No https support
+- No logging
